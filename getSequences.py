@@ -23,6 +23,7 @@ rec_handle=Entrez.efetch(db="nucleotide",id=rec["IdList"][2],rettype="fasta")
 ncov19=SeqIO.read(rec_handle,"fasta")
 
 # write found sequence to output file
+##ncov19.description = "SARS-CoV-2 MT259285.1"
 SeqIO.write(ncov19, outputGenomes, "fasta")
 
 # now we will do the same for the spike protein
@@ -30,6 +31,7 @@ handle=Entrez.esearch(db="protein",term="2019-nCov spike protein")
 spike_rec=Entrez.read(handle)
 spike_handle=Entrez.efetch(db="protein",id=spike_rec["IdList"][0],rettype="fasta")
 spike_ncov19=SeqIO.read(spike_handle,"fasta")
+##spike_ncov19.description = "SARS-CoV-2[spike] QIS30054.1"
 SeqIO.write(spike_ncov19, outputSpikes, "fasta")
 
 # repeat the same process for other sequences
@@ -38,12 +40,14 @@ handle=Entrez.esearch(db="nuccore",term="AY463059.1")
 rec=Entrez.read(handle)
 rec_handle=Entrez.efetch(db="nucleotide",id=rec["IdList"][0],rettype="fasta")
 sars1=SeqIO.read(rec_handle,"fasta")
+##sars1.description = "SARS AY463059.1"
 SeqIO.write(sars1, outputGenomes, "fasta")
 
 handle=Entrez.esearch(db="protein",term="AAR86788.1")
 spike_rec=Entrez.read(handle)
 spike_handle=Entrez.efetch(db="protein",id=spike_rec["IdList"][0],rettype="fasta")
 spike_sars1=SeqIO.read(spike_handle,"fasta")
+##spike_sars1.description = "SARS[spike] AAR86788.1"
 SeqIO.write(spike_sars1, outputSpikes, "fasta")
 
 # Bat coronavirus isolate Jiyuan-84, complete genome
@@ -90,13 +94,14 @@ influenza.description = influenza.description.replace(" segment 1, complete sequ
 # Write all segments to the file
 SeqIO.write(influenza, outputGenomes, "fasta")
 
-# Murine hepatitis virus strain A59
-handle=Entrez.esearch(db="nuccore",term="MF618252.1")
+# Hepatitis A virus
+handle=Entrez.esearch(db="nuccore",term="NC_001489.1")
 rec=Entrez.read(handle)
 rec_handle=Entrez.efetch(db="nucleotide",id=rec["IdList"][0],rettype="fasta")
 hepatitis=SeqIO.read(rec_handle,"fasta")
 SeqIO.write(hepatitis, outputGenomes, "fasta")
 
+# Murine hepatitis virus strain A59 (spike)
 handle=Entrez.esearch(db="protein",term="ATN37888.1")
 spike_rec=Entrez.read(handle)
 spike_handle=Entrez.efetch(db="protein",id=spike_rec["IdList"][0],rettype="fasta")
