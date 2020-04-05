@@ -23,7 +23,7 @@ rec_handle=Entrez.efetch(db="nucleotide",id=rec["IdList"][2],rettype="fasta")
 ncov19=SeqIO.read(rec_handle,"fasta")
 
 # write found sequence to output file
-##ncov19.description = "SARS-CoV-2 MT259285.1"
+ncov19.id = "SARS-CoV-2"
 SeqIO.write(ncov19, outputGenomes, "fasta")
 
 # now we will do the same for the spike protein
@@ -31,7 +31,7 @@ handle=Entrez.esearch(db="protein",term="2019-nCov spike protein")
 spike_rec=Entrez.read(handle)
 spike_handle=Entrez.efetch(db="protein",id=spike_rec["IdList"][0],rettype="fasta")
 spike_ncov19=SeqIO.read(spike_handle,"fasta")
-##spike_ncov19.description = "SARS-CoV-2[spike] QIS30054.1"
+spike_ncov19.id = "SARS-CoV-2"
 SeqIO.write(spike_ncov19, outputSpikes, "fasta")
 
 # repeat the same process for other sequences
@@ -40,14 +40,14 @@ handle=Entrez.esearch(db="nuccore",term="AY463059.1")
 rec=Entrez.read(handle)
 rec_handle=Entrez.efetch(db="nucleotide",id=rec["IdList"][0],rettype="fasta")
 sars1=SeqIO.read(rec_handle,"fasta")
-##sars1.description = "SARS AY463059.1"
+sars1.id = "SARS"
 SeqIO.write(sars1, outputGenomes, "fasta")
 
 handle=Entrez.esearch(db="protein",term="AAR86788.1")
 spike_rec=Entrez.read(handle)
 spike_handle=Entrez.efetch(db="protein",id=spike_rec["IdList"][0],rettype="fasta")
 spike_sars1=SeqIO.read(spike_handle,"fasta")
-##spike_sars1.description = "SARS[spike] AAR86788.1"
+spike_sars1.id = "SARS"
 SeqIO.write(spike_sars1, outputSpikes, "fasta")
 
 # Bat coronavirus isolate Jiyuan-84, complete genome
@@ -55,12 +55,14 @@ handle=Entrez.esearch(db="nuccore",term="KY770860.1")
 rec=Entrez.read(handle)
 rec_handle=Entrez.efetch(db="nucleotide",id=rec["IdList"][0],rettype="fasta")
 batCov=SeqIO.read(rec_handle,"fasta")
+batCov.id = "Bat-CoV"
 SeqIO.write(batCov, outputGenomes, "fasta")
 
 handle=Entrez.esearch(db="protein",term="ARI44809.1")
 spike_rec=Entrez.read(handle)
 spike_handle=Entrez.efetch(db="protein",id=spike_rec["IdList"][0],rettype="fasta")
 spike_batCov=SeqIO.read(spike_handle,"fasta")
+spike_batCov.id = "Bat-CoV"
 SeqIO.write(spike_batCov, outputSpikes, "fasta")
 
 # MERS – middle eastern respiratory syndrome coronavirus
@@ -68,12 +70,14 @@ handle=Entrez.esearch(db="nuccore",term="NC_019843.3")
 rec=Entrez.read(handle)
 rec_handle=Entrez.efetch(db="nucleotide",id=rec["IdList"][0],rettype="fasta")
 mers=SeqIO.read(rec_handle,"fasta")
+mers.id = "MERS"
 SeqIO.write(mers, outputGenomes, "fasta")
 
 handle=Entrez.esearch(db="protein",term="YP_009047204.1")
 spike_rec=Entrez.read(handle)
 spike_handle=Entrez.efetch(db="protein",id=spike_rec["IdList"][0],rettype="fasta")
 spike_mers=SeqIO.read(spike_handle,"fasta")
+spike_mers.id = "MERS"
 SeqIO.write(spike_mers, outputSpikes, "fasta")
 
 # Influenza A (H1N1 strain)
@@ -90,6 +94,7 @@ for id in segmentsIdList:
     influenzaNextSegment=SeqIO.read(rec_handle,"fasta")
     influenza.seq += influenzaNextSegment.seq
 
+influenza.id = "Influenza-A"
 influenza.description = influenza.description.replace(" segment 1, complete sequence", ", complete genome")
 # Write all segments to the file
 SeqIO.write(influenza, outputGenomes, "fasta")
@@ -99,6 +104,7 @@ handle=Entrez.esearch(db="nuccore",term="NC_001489.1")
 rec=Entrez.read(handle)
 rec_handle=Entrez.efetch(db="nucleotide",id=rec["IdList"][0],rettype="fasta")
 hepatitis=SeqIO.read(rec_handle,"fasta")
+hepatitis.id = "Hepatitis-A"
 SeqIO.write(hepatitis, outputGenomes, "fasta")
 
 # Murine hepatitis virus strain A59 (spike)
@@ -106,4 +112,5 @@ handle=Entrez.esearch(db="protein",term="ATN37888.1")
 spike_rec=Entrez.read(handle)
 spike_handle=Entrez.efetch(db="protein",id=spike_rec["IdList"][0],rettype="fasta")
 spike_hepatitis=SeqIO.read(spike_handle,"fasta")
+spike_hepatitis.id = "Murine-Hepatitis"
 SeqIO.write(spike_hepatitis, outputSpikes, "fasta")
